@@ -22,6 +22,13 @@
     margin-top: 10px;
 }
 
+.tags-box h2 {
+    margin-top: 0px;
+}
+.tag-item {
+    display: block;
+    margin: 4px;
+}
 .tag {
     padding: 2px 5px;
     border-radius: 5px;
@@ -55,6 +62,11 @@
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 15px;
+}
+
+.author-description {
+    text-align: justify;
+    margin-bottom: 20px;
 }
 
 .disabled {

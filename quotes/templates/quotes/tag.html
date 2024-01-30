@@ -2,6 +2,8 @@
 {% load extract %}
 
 {% block content %}
+<h3>Viewing tag: <a href="/tag/{{tag}}/">{{tag}}</a></h3>
+
 <div class="row">
     <div class="col-md-8">
         {% for quote in quotes %}
@@ -20,31 +22,15 @@
             </div>
         </div>
         {% endfor %}
-        <nav>
-            <ul class="pager">
-                <li class="previous">
-                    <a class="{% if not quotes.has_previous %} disabled {% endif %}"
-                    href="{% if quotes.has_previous %} {% url 'quotes:root_paginate' quotes.previous_page_number %} {% else %} # {% endif %}">
-                    <span aria-hidden="true">←</span>Previous</a>
-                </li>
-                <li class="next">
-                    <a class="{% if not quotes.has_next %} disabled {% endif %}"
-                    href="{% if quotes.has_next %} {% url 'quotes:root_paginate' quotes.next_page_number %} {% else %} # {% endif %}">
-                    Next <span aria-hidden="true">→</span></a>
-                </li>
-            </ul>
-        </nav>
+        
     </div>
     <div class="col-md-4 tags-box">
-    
         <h2>Top Ten tags</h2>
         {% for tag_name in tags %}
         <span class="tag-item">
             <a class="tag" style="font-size: 28px" href="/tag/{{tag_name}}/">{{tag_name}}</a>
         </span>
-    
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}
