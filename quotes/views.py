@@ -9,7 +9,7 @@ from django.contrib import messages
 
 from .models import Quote, Author, Tag
 # from .utils import get_mongodb
-from .forms import QATForm
+from .forms import QuoteForm, AuthorForm, TagForm
 
 
 # Сделано для MongoDB 
@@ -54,16 +54,38 @@ def by_tag(request, tag_name):
     # quotes_on_page = paginator.page(page)
     # print(quotes_on_page)
     return render(request, "quotes/tag.html", context={'tag': tag_name, 'quotes': quotes, 'tags': top_tags})
-    
+
+@login_required
+def load_author(request):
+    form_author = AuthorForm()
+    if request.method == 'POST':
+        form_author = AuthorForm(request.POST)
+        if form_author.is_valid():
+            form_author.save()
+            return redirect(to='quotes:root')
+    return render(request, 'quotes/add_author.html',
+                  context={'form_author': form_author})
+
 @login_required
 def upload(request):
-    form = QATForm()
+    form = QuoteForm()
+    form_tag = TagForm()
     if request.method == 'POST':
-        form = QATForm(request.POST)
-        if form.is_valid():
+        form = QuoteForm(request.POST)
+        form_tag = TagForm(request.POST)
+        # print(form)
+        # author = request.POST.get("select name")
+        print(form_tag)
+        if form.is_valid() and form_tag.is_valid():
+            
+            print(form_tag)
+            tag = form_tag.save()
             quote = form.save(commit=False)
-            quote.user = request.user
+            # quote.author_id = author.id
             quote.save()
+            # tag, created = form_tag.get_or_create(name = form_tag.name)
+            quote.tags.add(tag)
+            # quote.user = request.user
             return redirect(to='quotes:root')
     return render(request, 'quotes/add_quote.html',
-                  context={'form': form})
+                  context={'form': form, 'form_tag': form_tag})

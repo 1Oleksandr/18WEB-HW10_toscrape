@@ -1,5 +1,6 @@
 {% extends 'quotes/base.html' %}
 
+
 {% block content %}
 <h2>Add your favorite quote</h2>
 <!-- Добавил start -->
@@ -9,7 +10,7 @@
     </div>
 {% endif %}
 <!-- Добавил end -->
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-row">
         <div class="mb-3">
@@ -21,37 +22,16 @@
     <div class="form-row">
         <div class="mb-3">
             <label class="form-label">Author name</label>
-            {{form.fullname}}
+                {{ form.author.fullname }}
         </div>
-        <span>{{form.errors.fullname}}</span>
-    </div>
-    <div class="form-row">
-        <div class="mb-3">
-            <label class="form-label">Author's born date</label>
-            {{form.born_date}}
-        </div>
-        <span>{{form.errors.born_date}}</span>
-    </div>
-    <div class="form-row">
-        <div class="mb-3">
-            <label class="form-label">Author's born location</label>
-            {{form.born_location}}
-        </div>
-        <span>{{form.errors.born_location}}</span>
-    </div>
-    <div class="form-row">
-        <div class="mb-3">
-            <label class="form-label">About author</label>
-            {{form.description}}
-        </div>
-        <span>{{form.errors.description}}</span>
+        <span>{{form.errors.author}}</span>
     </div>
     <div class="form-row">
         <div class="mb-3">
             <label class="form-label">Tags</label>
-            {{form.tag}}
+            {{form_tag.name }}
         </div>
-        <span>{{form.errors.tag}}</span>
+        <span>{{form_tag.errors.name}}</span>
     </div>
     <button type="submit" class="btn btn-primary">Add quote</button>
 

@@ -1,0 +1,47 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+<h2>Add your favorite author</h2>
+<!-- Добавил start -->
+{% if form_author.errors and form_author.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{form_author.non_field_errors}}
+    </div>
+{% endif %}
+<!-- Добавил end -->
+<form method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="mb-3">
+            <label class="form-label">Author name</label>
+            {{form_author.fullname}}
+        </div>
+        <span>{{form_author.errors.fullname}}</span>
+    </div>
+    <div class="form-row">
+        <div class="mb-3">
+            <label class="form-label">Author's born date</label>
+            {{form_author.born_date}}
+        </div>
+        <span>{{form_author.errors.born_date}}</span>
+    </div>
+    <div class="form-row">
+        <div class="mb-3">
+            <label class="form-label">Author's born location</label>
+            {{form_author.born_location}}
+        </div>
+        <span>{{form_author.errors.born_location}}</span>
+    </div>
+    <div class="form-row">
+        <div class="mb-3">
+            <label class="form-label">About author</label>
+            {{form_author.description}}
+        </div>
+        <span>{{form_author.errors.description}}</span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add author</button>
+
+    <button type="reset" class="secondary">Reset</button>
+</form>
+
+{% endblock %}

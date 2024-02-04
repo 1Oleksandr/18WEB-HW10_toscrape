@@ -21,5 +21,10 @@ def get_tags(quote):
     tags_for_quote = quote.tags.all()
     return tags_for_quote
 
+# def get_fullname(author_obj):
+#     fullname = author_obj.fullname
+#     return fullname
+
 register.filter('author', get_author)
 register.filter('tagss', get_tags)
+# register.filter('fullname', get_fullname)
