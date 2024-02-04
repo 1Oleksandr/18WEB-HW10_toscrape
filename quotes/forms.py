@@ -4,9 +4,9 @@ from .models import Author, Tag, Quote
 class QuoteForm(ModelForm):
     quote = CharField(required=True, widget=TextInput(
         attrs={'class': 'form-control'}))
-    authors = Author.objects.all()
+    # authors = Author.objects.all()
     # authors = Author.objects.values_list('id','fullname')
-    author = ModelChoiceField(queryset = authors, widget=Select(
+    author = ModelChoiceField(queryset = Author.objects.all(), widget=Select(
         attrs={'class': 'form-control'}))
 
     class Meta:
