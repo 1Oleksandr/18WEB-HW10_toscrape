@@ -66,26 +66,45 @@ def load_author(request):
     return render(request, 'quotes/add_author.html',
                   context={'form_author': form_author})
 
+# @login_required
+# def upload(request):
+#     form = QuoteForm()
+#     form_tag = TagForm()
+#     if request.method == 'POST':
+#         form = QuoteForm(request.POST)
+#         form_tag = TagForm(request.POST)
+#         if form.is_valid() and form_tag.is_valid():
+#             tag = form_tag.save()
+#             quote = form.save(commit=False)
+#             quote.save()
+#             quote.tags.add(tag)
+#             return redirect(to='quotes:root')
+#     return render(request, 'quotes/add_quote.html',
+#                   context={'form': form, 'form_tag': form_tag})
+
+def tag_normalize(tags): 
+    t1 = tags.replace(',' , ' ')
+    t2 = t1.replace('.', ' ')
+    tags = t2.strip().split()
+    return tags
+
 @login_required
 def upload(request):
-    form = QuoteForm()
-    form_tag = TagForm()
+    form_quote = QuoteForm()
     if request.method == 'POST':
-        form = QuoteForm(request.POST)
-        form_tag = TagForm(request.POST)
-        # print(form)
-        # author = request.POST.get("select name")
-        print(form_tag)
-        if form.is_valid() and form_tag.is_valid():
-            
-            print(form_tag)
-            tag = form_tag.save()
-            quote = form.save(commit=False)
-            # quote.author_id = author.id
-            quote.save()
-            # tag, created = form_tag.get_or_create(name = form_tag.name)
-            quote.tags.add(tag)
+        form_quote = QuoteForm(request.POST)
+        tags = request.POST['tags']
+        if tags == '':
+            return render(request, 'quotes/add_quote.html',
+                  context={'form_quote': form_quote})
+        list_tags = tag_normalize(tags)
+        if form_quote.is_valid():
+            quote = form_quote.save(commit=False)
             # quote.user = request.user
+            quote.save()
+            for t in list_tags:
+                tag = Tag.objects.get_or_create(name = t)
+                quote.tags.add(tag[0])
             return redirect(to='quotes:root')
     return render(request, 'quotes/add_quote.html',
-                  context={'form': form, 'form_tag': form_tag})
+                  context={'form_quote': form_quote})

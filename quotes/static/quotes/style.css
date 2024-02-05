@@ -73,3 +73,14 @@
     color: #333333;
     cursor: not-allowed;
 }
+
+.input-width {
+    height:23px;
+    border:1px solid #999;
+    background:#fff;
+}
+.width-setter {
+    height:23px;
+    margin:0 9px;
+    position:relative;
+}

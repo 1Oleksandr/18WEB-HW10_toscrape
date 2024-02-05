@@ -15,21 +15,29 @@
     <div class="form-row">
         <div class="mb-3">
             <label class="form-label">Quote</label>
-            {{form.quote}}
+            {{form_quote.quote}}
         </div>
-        <span>{{form.errors.quote}}</span>
+        <span>{{form_quote.errors.quote}}</span>
     </div>
     <div class="form-row">
         <div class="mb-3">
             <label class="form-label">Author name</label>
-                {{ form.author }}
+                {{ form_quote.author }}
         </div>
-        <span>{{form.errors.author}}</span>
+        <span>{{form_quote.errors.author}}</span>
     </div>
     <div class="form-row">
         <div class="mb-3">
             <label class="form-label">Tags</label>
-            {{form_tag.name }}
+            <p>
+                <div class="input-width">
+                    <div class="width-setter">
+                        <input type="text" name="tags" value=""/>
+                    <div>
+                </div>  
+            </p>
+            
+            <!-- {{form_tag.name }} -->
         </div>
         <span>{{form_tag.errors.name}}</span>
     </div>
