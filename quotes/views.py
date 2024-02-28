@@ -66,21 +66,6 @@ def load_author(request):
     return render(request, 'quotes/add_author.html',
                   context={'form_author': form_author})
 
-# @login_required
-# def upload(request):
-#     form = QuoteForm()
-#     form_tag = TagForm()
-#     if request.method == 'POST':
-#         form = QuoteForm(request.POST)
-#         form_tag = TagForm(request.POST)
-#         if form.is_valid() and form_tag.is_valid():
-#             tag = form_tag.save()
-#             quote = form.save(commit=False)
-#             quote.save()
-#             quote.tags.add(tag)
-#             return redirect(to='quotes:root')
-#     return render(request, 'quotes/add_quote.html',
-#                   context={'form': form, 'form_tag': form_tag})
 
 def tag_normalize(tags): 
     t1 = tags.replace(',' , ' ')
